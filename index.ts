@@ -1,11 +1,11 @@
-type ResultType<T> = {
+type Result<T> = {
   isOk(): this is Ok<T>;
   isErr(): this is Err<T>;
   unwrap(): T | Promise<T>;
   unwrapErr(): Error;
 };
 
-class Ok<T> implements ResultType<T> {
+class Ok<T> implements Result<T> {
   constructor(private value: T | Promise<T>) {}
   isOk(): this is Ok<T> {
     return true;
@@ -21,7 +21,7 @@ class Ok<T> implements ResultType<T> {
   }
 }
 
-class Err<T> implements ResultType<T> {
+class Err<T> implements Result<T> {
   constructor(private error: Error) {}
   isOk(): this is Ok<T> {
     return false;
@@ -37,11 +37,11 @@ class Err<T> implements ResultType<T> {
   }
 }
 
-export const Result = {
-  ok<T>(value: T | Promise<T>): ResultType<T> {
+export const R = {
+  ok<T>(value: T | Promise<T>): Result<T> {
     return new Ok<T>(value);
   },
-  err<T = unknown>(error: Error | string): ResultType<T> {
+  err<T = unknown>(error: Error | string): Result<T> {
     const errInstance = typeof error === 'string' ? new Error(error) : error;
     return new Err<T>(errInstance);
   }
