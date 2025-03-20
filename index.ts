@@ -1,7 +1,4 @@
-export type Result<T> = {
-  val: T | null;
-  err: Error | null;
-};
+type Result<T> = [T | null, Error | null];
 
 export async function go<T>(callback: () => Promise<T>): Promise<[T | null, Error | null]> {
   try {
