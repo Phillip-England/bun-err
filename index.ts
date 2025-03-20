@@ -1,4 +1,4 @@
-type Result<T> = {
+export type Result<T> = {
   isOk(): this is Ok<T>;
   isErr(): this is Err<T>;
   unwrap(): T | Promise<T>;
@@ -37,7 +37,7 @@ class Err<T> implements Result<T> {
   }
 }
 
-export const R = {
+export const Exit = {
   ok<T>(value: T | Promise<T>): Result<T> {
     return new Ok<T>(value);
   },
