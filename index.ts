@@ -37,7 +37,7 @@ class Err<T> implements Result<T> {
   }
 }
 
-export const Exit = {
+export const exit = {
   ok<T>(value: T | Promise<T>): Result<T> {
     return new Ok<T>(value);
   },
